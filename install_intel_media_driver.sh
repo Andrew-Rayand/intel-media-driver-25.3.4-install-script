@@ -4,7 +4,7 @@ set -e  # Выход при ошибке
 
 # Обновление и установка зависимостей
 apt update
-apt install -y git cmake pkg-config libdrm-dev automake libtool autoconf xorg xorg-dev openbox libx11-dev libgl1-mesa-glx libxfixes-dev meson vainfo
+apt install -y git cmake pkg-config libdrm-dev automake libtool autoconf xorg xorg-dev openbox libx11-dev libgl1 libglx-mesa0 libxfixes-dev meson vainfo
 
 # Создание рабочей директории
 mkdir -p ~/intel-drivers && cd ~/intel-drivers
