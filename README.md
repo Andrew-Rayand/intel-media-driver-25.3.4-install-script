@@ -23,13 +23,13 @@ vainfo для проверки.
 Все шаги:
 
 gmmlib: Клонирование репозитория https://github.com/intel/gmmlib.git, checkout тега "intel-gmmlib-22.8.2", создание директории build, конфигурация CMake, компиляция с make -j$(nproc) и установка. Устанавливается в /usr/local/lib (например, libigdgmm.so). Эта библиотека критически важна для управления памятью в GPU и совместима с ABI media-driver 25.x.
-libva: Клонирование https://github.com/intel/libva.git, checkout "2.22.0" (исправленный шаг), autogen с путями для Debian (--prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu) чтобы избежать проблем с LD_LIBRARY_PATH, компиляция и установка. Альтернатива — использовать Meson (meson .. -Dprefix=/usr -Dlibdir=/usr/lib/x86_64-linux-gnu && ninja && sudo ninja install), но autogen стандартный для старых конфигураций. Эта библиотека предоставляет VA-API, интерфейс для аппаратного ускорения видео.
+libva: Клонирование https://github.com/intel/libva.git, checkout "2.22.0", autogen с путями для Debian (--prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu) чтобы избежать проблем с LD_LIBRARY_PATH, компиляция и установка. Эта библиотека предоставляет VA-API, интерфейс для аппаратного ускорения видео.
 media-driver: Клонирование https://github.com/intel/media-driver.git, checkout "intel-media-25.3.4", создание build, CMake, компиляция и установка. Устанавливает драйвер iHD (iHD_drv_video.so) в /usr/lib/x86_64-linux-gnu/dri и скрипт профиля для окружения. Для ADL-N это обеспечивает полную поддержку, включая AV1-декодирование и HEVC-кодирование.
 
 Скрипт также создаёт файл /etc/profile.d/intel-media.sh для переменных окружения (LIBVA_DRIVERS_PATH и LIBVA_DRIVER_NAME=iHD), очищает временные файлы и выводит сообщение об успешном завершении.
 
 Настройка после установки:
 После выполнения скрипта источник профиля: source /etc/profile.d/intel-media.sh. Если файл не создан автоматически, добавьте переменные вручную в /etc/environment:
-textLIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri
+LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri
 LIBVA_DRIVER_NAME=iHD
 Перезагрузка системы (reboot) применит изменения ко всем сессиям. Для постоянства убедитесь, что переменные загружаются при старте.
